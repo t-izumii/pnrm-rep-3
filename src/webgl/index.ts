@@ -1,21 +1,20 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Reflector } from "three/addons/objects/Reflector.js";
 import gsap from "gsap";
 export class WebGLApp {
-  private scene: THREE.Scene;
-  private camera: THREE.PerspectiveCamera;
-  private renderer: THREE.WebGLRenderer;
+  private scene!: THREE.Scene;
+  private camera!: THREE.PerspectiveCamera;
+  private renderer!: THREE.WebGLRenderer;
   private clock: THREE.Clock;
-  private group: THREE.Group;
-  private positionGroup: THREE.Group;
-  private dragGroup: THREE.Group;
-  private mesh: THREE.Mesh;
+  private group!: THREE.Group;
+  private positionGroup!: THREE.Group;
+  private dragGroup!: THREE.Group;
+  private mesh!: THREE.Mesh;
   private modelCover: any;
   private modelCoverOpenRad: any;
   private modelCoverCloseRad: any;
-  private reflector: Reflector;
+  private reflector!: Reflector;
   private isDragging: boolean;
   private previousMousePosition: { x: number; y: number };
   private rotationVelocity: { x: number; y: number };
@@ -98,8 +97,8 @@ export class WebGLApp {
 
   loadModel() {
     const loader = new GLTFLoader();
-    loader.load("/model.glb", (gltf) => {
-      gltf.scene.traverse((child) => {
+    loader.load("/model.glb", (gltf: any) => {
+      gltf.scene.traverse((child: any) => {
         if (child.isMesh) {
           // console.log(child.name);
 
@@ -236,7 +235,9 @@ export class WebGLApp {
       Object.values(this.itemArray).forEach((meshArray) => {
         meshArray.forEach((mesh) => {
           mesh.visible = false;
-          mesh.material.opacity = 0;
+          if (!Array.isArray(mesh.material)) {
+            mesh.material.opacity = 0;
+          }
         });
       });
 
@@ -244,7 +245,9 @@ export class WebGLApp {
       if (this.itemArray[itemType]) {
         this.itemArray[itemType].forEach((mesh) => {
           mesh.visible = true;
-          mesh.material.opacity = 1;
+          if (!Array.isArray(mesh.material)) {
+            mesh.material.opacity = 1;
+          }
         });
       }
     }, 1000);
@@ -327,7 +330,7 @@ export class WebGLApp {
   }
 
   setUpEventListener() {
-    window.addEventListener("click", (e) => {
+    window.addEventListener("click", () => {
       // ドラッグ後のクリックは無視
       if (this.hasMoved) {
         return;
