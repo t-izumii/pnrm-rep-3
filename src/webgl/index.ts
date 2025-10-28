@@ -97,7 +97,7 @@ export class WebGLApp {
 
   loadModel() {
     const loader = new GLTFLoader();
-    loader.load("/model.glb", (gltf: any) => {
+    loader.load("./model.glb", (gltf: any) => {
       gltf.scene.traverse((child: any) => {
         if (child.isMesh) {
           // console.log(child.name);
