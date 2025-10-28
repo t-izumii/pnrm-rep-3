@@ -100,7 +100,7 @@ export class WebGLApp {
     loader.load("./model.glb", (gltf: any) => {
       gltf.scene.traverse((child: any) => {
         if (child.isMesh) {
-          // console.log(child.name);
+          console.log(child.name);
 
           if (
             child.name === "Contenant" ||
