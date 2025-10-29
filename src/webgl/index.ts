@@ -146,7 +146,6 @@ export class WebGLApp {
             child.parent?.add(this.reflector);
 
             // Reflectorの内部設定をカスタマイズ
-            // @ts-ignore - Reflectorの内部プロパティにアクセス
             if (this.reflector.material) {
               // @ts-ignore
               this.reflector.material.side = THREE.DoubleSide;
